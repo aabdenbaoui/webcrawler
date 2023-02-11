@@ -1,0 +1,58 @@
+    Why did the parser take more time when run with ParallelWebCrawler?
+
+    Answer: The ParallelWebCrawler causes the parse to take more time, because ParallelWebCrawler visited more URLs than sequential way.
+    Downloading more pages causes parser to take more time.
+
+
+Q2. Your manager ran your crawler on her old personal computer, using the configurations from Q1, and she notices that
+    the sequential crawler actually outperforms the parallel crawler. She would like to know why.
+
+    (a) Suggest one reason why the sequential web crawler was able to read more web pages than the parallel crawler.
+        (Hint: Try setting "parallelism" to 1 in the JSON configs to simulate your manager's computer.)
+
+        Answer: The cause could be the manager posses a computer without multi-thread CPU. The machine needs to support multi-thread CPU
+        for the JVM to create more threads. Without multi-thread CPU the program will not be able to reach parallelism.
+
+    (b) Suggest one scenario in which the parallel web crawler will almost certainly perform better than the sequential
+        crawler. Why will it perform better?
+        
+        Answer: The parallel web crawler will perform good when the starting web page takes the program to at least one subsequent 
+              link, and the maximum search depth is grater than 0.
+     
+
+
+Q3. Analyze your method profiler through the lens of Aspect Oriented Programming, by answering the following questions:
+
+    (a) What cross-cutting concern is being addressed by the com.udacity.webcrawler.profiler.Profiler class?
+
+    -> The cross-cutting concern is performance profiling.
+
+    (b) What are the join points of the Profiler in the web crawler program?
+
+    -> The join points of the Profiler are potentially any method that holds a @Profiled annotation.
+    For this web crawler program, the join points could be any instance method invocation of WebCrawler
+    and PageParser classes. Currently, the crawl(List<String>) and parser() methods are the ones being intercepted
+    by the ProfilingMethodInterceptor through the @Profiled.
+
+Q4. Identify three (3) different design patterns used in this project, and explain which interfaces, classes, and/or
+    libraries use or implement those design patterns.
+
+    For each pattern, name one thing about the pattern that you LIKED, and one thing you DISLIKED. If you did not like
+    anything, you can name two things you disliked.
+
+
+    -> BUILDER pattern: mutable factory for constructing objects. It has been used across many classes in this
+    web crawler program such as CountWordsTask, PageParser, CrawlerConfiguration, CrawlResult, and ParserModule.
+    One thing I like is encapsulates code for construction, representation and provides us with control overb contruction
+    process.
+    The most thing I don't like is Builder classes must be mutable.
+
+    -> ABSTRACT FACTORY pattern: creates objects by hiding construction details from callers. It is used by
+    the PageParserFactoryImpl class for creating PageParser objects.
+    I the most I like about abstract factory pattern is it gives us the power to interchange the classes without changing the client's code.
+    The drawbak is the extra complexity.
+
+    -> DEPENDENCY INJECTION pattern: moves the creation of dependencies to outside of the code. It is widely used by many
+    of this web crawler program such as WebCrawlerMain, ParallelWebCrawler and SequentialWebCrawler classes.
+    I like most about this pattern is it decrease coupling between the classes and their dependancy.
+    I don't like about this pattern is it takes put the complexity on linkes between class and out of classes.
