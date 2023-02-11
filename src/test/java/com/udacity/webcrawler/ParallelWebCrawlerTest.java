@@ -2,11 +2,12 @@ package com.udacity.webcrawler;
 
 import com.google.inject.Guice;
 import com.udacity.webcrawler.json.CrawlerConfiguration;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import javax.inject.Inject;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public final class ParallelWebCrawlerTest {
   @Inject

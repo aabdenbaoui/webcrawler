@@ -1,4 +1,4 @@
-    Why did the parser take more time when run with ParallelWebCrawler?
+Q1    Why did the parser take more time when run with ParallelWebCrawler?
 
     Answer: The ParallelWebCrawler causes the parse to take more time, because ParallelWebCrawler visited more URLs than sequential way.
     Downloading more pages causes parser to take more time.

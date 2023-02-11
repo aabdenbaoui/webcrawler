@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 public final class CrawlerConfiguration {
 
+  private final int counter = 0;
   private final List<String> startPages;
   private final List<Pattern> ignoredUrls;
   private final List<Pattern> ignoredWords;

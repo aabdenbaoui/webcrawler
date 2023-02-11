@@ -20,7 +20,7 @@ import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 final class ProfilerImpl implements Profiler {
 
   private final Clock clock;
-  private final ProfilingState state = new ProfilingState();
+  private final ProfilingState stateProfiling = new ProfilingState();
   private final ZonedDateTime startTime;
 
   @Inject
@@ -49,7 +49,7 @@ final class ProfilerImpl implements Profiler {
     Object proxy  = Proxy.newProxyInstance(
             klass.getClassLoader(),
             new Class<?>[]{klass},
-            new ProfilingMethodInterceptor(clock, delegate, state));
+            new ProfilingMethodInterceptor(clock, delegate, stateProfiling));
 
     return (T) proxy;
   }
@@ -67,7 +67,7 @@ final class ProfilerImpl implements Profiler {
   public void writeData(Writer writer) throws IOException {
     writer.write("Run at " + RFC_1123_DATE_TIME.format(startTime));
     writer.write(System.lineSeparator());
-    state.write(writer);
+    stateProfiling.write(writer);
     writer.write(System.lineSeparator());
   }
 }

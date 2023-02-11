@@ -44,6 +44,7 @@ public final class ConfigurationLoader {
    * @return a crawler configuration
    */
   @JsonDeserialize(builder = CrawlerConfiguration.Builder.class)
+
   public static CrawlerConfiguration read(Reader reader) throws IOException {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(reader);

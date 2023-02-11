@@ -47,8 +47,8 @@ final class ParallelWebCrawler implements WebCrawler {
 
   @Override
   public CrawlResult crawl(List<String> startingUrls) {
-    final Map<String, Integer> counts = new ConcurrentHashMap<>();
-    final ConcurrentSkipListSet<String> visitedUrls = new ConcurrentSkipListSet<>();
+    final Map<String, Integer> theCounts = new ConcurrentHashMap<>();
+    final ConcurrentSkipListSet<String> visitedUrlsListSet = new ConcurrentSkipListSet<>();
     final Instant deadline = clock.instant().plus(timeout);
 
     for (final String url : startingUrls) {
@@ -62,24 +62,24 @@ final class ParallelWebCrawler implements WebCrawler {
               .setDeadline(deadline)
               .setUrl(url)
               .setParserFactory(parserFactory)
-              .setCounts(counts)
-              .setVisitedUrls(visitedUrls)
+              .setCounts(theCounts)
+              .setVisitedUrls(visitedUrlsListSet)
               .setIgnoredUrls(ignoredUrls)
               .build();
 
       pool.invoke(countWordsTask);
     }
 
-    if (counts.isEmpty()) {
+    if (theCounts.isEmpty()) {
       return new CrawlResult.Builder()
-              .setWordCounts(counts)
-              .setUrlsVisited(visitedUrls.size())
+              .setWordCounts(theCounts)
+              .setUrlsVisited(visitedUrlsListSet.size())
               .build();
     }
 
     return new CrawlResult.Builder()
-            .setWordCounts(WordCounts.sort(counts, popularWordCount))
-            .setUrlsVisited(visitedUrls.size())
+            .setWordCounts(WordCounts.sort(theCounts, popularWordCount))
+            .setUrlsVisited(visitedUrlsListSet.size())
             .build();
   }
 

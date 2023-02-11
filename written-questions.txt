@@ -1,4 +1,4 @@
-Written Questions
+Written Questions of Parallel Project
 
 Q1. Run the web crawler using the configurations located at src/main/config/written_question_1a.json and
     src/main/config/written_question_1b.json. The only difference between these configurations is that one always uses

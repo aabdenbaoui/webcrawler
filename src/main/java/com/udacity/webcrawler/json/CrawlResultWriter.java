@@ -57,6 +57,7 @@ public final class CrawlResultWriter {
    * @param writer the destination where the crawl result data should be written.
    */
   @JsonDeserialize(builder = CrawlResult.Builder.class)
+
   public void write(Writer writer) throws IOException {
     // This is here to get rid of the unused variable warning.
     Objects.requireNonNull(writer);

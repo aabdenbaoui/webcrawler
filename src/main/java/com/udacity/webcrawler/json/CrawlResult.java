@@ -9,7 +9,7 @@ import java.util.Objects;
  * Data class representing the final result of a web crawl.
  */
 public final class CrawlResult {
-
+//  private int wordsNotCounted;
   private final Map<String, Integer> wordCounts;
   private final int urlsVisited;
 
